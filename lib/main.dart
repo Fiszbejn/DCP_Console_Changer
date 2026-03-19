@@ -93,7 +93,12 @@ class _ConsoleChangerScreenState extends State<ConsoleChangerScreen> {
 
   int currentIndex = 0;
 
-  void changeConsole() {}
+  void changeConsole() {
+    setState(() {
+      currentIndex = (currentIndex + 1) % consoles.length;
+      consoleSelected = consoles[currentIndex];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +107,12 @@ class _ConsoleChangerScreenState extends State<ConsoleChangerScreen> {
       body: Container(
         padding: EdgeInsets.all(16),
         child: Column(
-          children: [ConsoleLogo(), SizedBox(height: 150), ConsoleCard()],
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ConsoleLogo(),
+            ConsoleCard(console: consoleSelected!),
+            ConsoleChangerButton(onPressed: changeConsole),
+          ],
         ),
       ),
     );
@@ -132,7 +142,9 @@ class ConsoleLogo extends StatelessWidget {
 
 //Card
 class ConsoleCard extends StatelessWidget {
-  const ConsoleCard({super.key});
+  final Console console;
+
+  const ConsoleCard({super.key, required this.console});
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +153,7 @@ class ConsoleCard extends StatelessWidget {
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
-        color: Colors.blueGrey,
+        color: Colors.blueGrey[700],
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -152,19 +164,47 @@ class ConsoleCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               color: Colors.white,
             ),
-            child: Image.asset(
-              "assets/images/sony_playstation.png",
-              width: 250,
-            ),
+            child: Image.asset(console.imagePath, width: 250),
           ),
+          SizedBox(height: 16),
           Text(
-            "Playstation 1",
+            console.name,
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          Text("Geração: Geração 5", style: TextStyle(fontSize: 16)),
-          Text("Ano: 1994", style: TextStyle(fontSize: 16)),
-          Text("Fabricação: Sony", style: TextStyle(fontSize: 16)),
+          Text(
+            "Geração: ${console.generation}",
+            style: TextStyle(fontSize: 16),
+          ),
+          Text("Ano: ${console.year}", style: TextStyle(fontSize: 16)),
+          Text(
+            "Fabricação: ${console.fabrication}",
+            style: TextStyle(fontSize: 16),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+//Button
+class ConsoleChangerButton extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  const ConsoleChangerButton({super.key, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Color(0xFF1E1E2C),
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(vertical: 24),
+        ),
+        icon: const Icon(Icons.play_arrow_rounded),
+        label: const Text("Próximo console"),
       ),
     );
   }
