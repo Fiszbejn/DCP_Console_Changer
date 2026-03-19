@@ -90,8 +90,13 @@ class _ConsoleChangerScreenState extends State<ConsoleChangerScreen> {
   ];
 
   Console? consoleSelected;
-
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    consoleSelected = consoles[currentIndex];
+  }
 
   void changeConsole() {
     setState(() {
