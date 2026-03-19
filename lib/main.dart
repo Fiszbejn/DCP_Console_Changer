@@ -109,15 +109,17 @@ class _ConsoleChangerScreenState extends State<ConsoleChangerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ConsoleLogo(),
-            ConsoleCard(console: consoleSelected!),
-            ConsoleChangerButton(onPressed: changeConsole),
-          ],
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ConsoleLogo(),
+              ConsoleCard(console: consoleSelected!),
+              ConsoleChangerButton(onPressed: changeConsole),
+            ],
+          ),
         ),
       ),
     );
