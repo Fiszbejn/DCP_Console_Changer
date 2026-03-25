@@ -1,7 +1,5 @@
 # 🎛️ DCP Console Changer (Flutter)
 
-Projeto em **Flutter** com uma proposta simples: oferecer uma interface para **alterar/ajustar valores e configurações via console**, de forma prática e direta.
-
 📌 Este projeto foi desenvolvido como **desafio de avaliação do Checkpoint 1** na matéria de **Desenvolvimento Cross Platform**.
 
 ---
